@@ -116,6 +116,7 @@ namespace Translation
             getData = GeterData;
             dataUpdater = new Task(UpdateData);
             dataUpdater.Start();
+            new Task(StartSend).Start();
         }
 
 
