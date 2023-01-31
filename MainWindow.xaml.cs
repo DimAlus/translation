@@ -139,9 +139,14 @@ namespace Translation
             }*/
         }
 
-
+        System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
+        System.Drawing.Rectangle r = new System.Drawing.Rectangle(0, 0, 20, 20);
+        Point p = new Point();
         byte[] CaptureRect ()
         {
+            Dispatcher.Invoke(() => p = PointToScreen(Mouse.GetPosition(this)));
+             
+            r.Location = new System.Drawing.Point((int)p.X - 10, (int)p.Y - 10);
            // System.Drawing.Rectangle rect;
             System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Jpeg;
             using (var ms = new System.IO.MemoryStream())
@@ -151,7 +156,8 @@ namespace Translation
                 {
                     using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(bitmap))
                     {
-                        graphics.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, System.Drawing.CopyPixelOperation.CaptureBlt);//System.Drawing.CopyPixelOperation.SourceCopy
+                        graphics.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, System.Drawing.CopyPixelOperation.SourceCopy);//System.Drawing.CopyPixelOperation.SourceCopy
+                        graphics.DrawEllipse(pen, r);
                     }
                     
                     bitmap.Save(ms, format);
