@@ -70,6 +70,27 @@ namespace Translation
                 }
             }
         }*/
+        void SetImage(byte[] bts)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                try
+                {
+
+                    img = new BitmapImage();
+                    img.BeginInit();
+                    img.StreamSource = new MemoryStream(bts);
+                    img.EndInit();
+                    Imag.Source = img;
+                }
+                catch (Exception e)
+                {
+                    //MessageBox.Show(e.ToString());
+                }
+
+            });
+        }
+
         public MainWindow ()
         {
             InitializeComponent();/*
@@ -130,7 +151,7 @@ namespace Translation
                 {
                     using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(bitmap))
                     {
-                        graphics.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, System.Drawing.CopyPixelOperation.SourceCopy);
+                        graphics.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, System.Drawing.CopyPixelOperation.CaptureBlt);//System.Drawing.CopyPixelOperation.SourceCopy
                     }
                     
                     bitmap.Save(ms, format);
@@ -148,6 +169,7 @@ namespace Translation
         {
             IPWindow.Visibility = Visibility.Collapsed;
             client = new NetClient(ipadd.Text);
+            client.GetData += SetImage;
             //SendMessageFromSocket(11000);
         }
         //
