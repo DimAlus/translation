@@ -138,6 +138,7 @@ namespace Translation
                     {
                         while (data == null)
                             await Task.Delay(10);
+
                         handler.Send(data);
                     }
 
