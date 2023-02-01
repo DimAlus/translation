@@ -105,7 +105,8 @@ namespace Translation
                     System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height));
         private async void Server_Click (object sender, RoutedEventArgs e)
         {
-            server = new NetServer(CaptureRect);
+            if (server == null)
+                server = new NetServer(CaptureRect);
             /* IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, 11000);
 
              Socket myServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);*/
@@ -141,12 +142,15 @@ namespace Translation
 
         System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
         System.Drawing.Rectangle r = new System.Drawing.Rectangle(0, 0, 20, 20);
-        Point p = new Point();
+        System.Drawing.Point p = new System.Drawing.Point();
         System.Drawing.Icon ic = new System.Drawing.Icon("bx-shower.ico");
-        byte[] CaptureRect ()
+        byte[] CaptureRect()
         {
-            Dispatcher.Invoke(() => p = PointToScreen(Mouse.GetPosition(this)));
-             
+            //Dispatcher.Invoke(() => { p = PointToScreen(Mouse.GetPosition(this)); 
+            //System.Windows.Forms.Control.MousePosition
+            //  TB.Text = p.X.ToString() + "  " + p.Y.ToString();
+            //});
+            p = System.Windows.Forms.Control.MousePosition;
             r.Location = new System.Drawing.Point((int)p.X - 10, (int)p.Y - 10);
            // System.Drawing.Rectangle rect;
             System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Jpeg;

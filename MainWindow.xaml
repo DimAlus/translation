@@ -65,6 +65,7 @@
         </StackPanel>
         <Grid x:Name="ImgGrid">
             <Image x:Name="Imag"/>
+            <TextBlock x:Name="TB"/>
         </Grid>
 
         <Grid x:Name="IPWindow" Visibility="Collapsed">
