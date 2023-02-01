@@ -49,39 +49,43 @@ namespace Translation
 
         void SendMessageFromSocket ()
         {
-            if (port == 0)
-                StartSend();
-            while(true)
-            try
+            while (true)
             {
-                ipEndPoint = new IPEndPoint(IPAddress.Parse(ipadd), startPort + port);
-                sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                // Соединяем сокет с удаленной точкой
-                sender.Connect(ipEndPoint);
-
-                byte[] bytes = new byte[9000000];
-                while (true)
+                if (port == 0)
+                    StartSend();
+                try
                 {
-                    sender.Send(new byte[] { 0x1F });
-                    int size = sender.Receive(bytes);
-                    byte[] bts = new byte[size];
-                    Array.Copy(bytes, bts, size);
-                    GetData(bts);
+                    ipEndPoint = new IPEndPoint(IPAddress.Parse(ipadd), startPort + port);
+                    sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
+                    // Соединяем сокет с удаленной точкой
+                    sender.Connect(ipEndPoint);
+
+                    byte[] bytes = new byte[9000000];
+                    while (true)
+                    {
+                        sender.Send(new byte[] { 0x1F });
+                        int size = sender.Receive(bytes);
+                        byte[] bts = new byte[size];
+                        Array.Copy(bytes, bts, size);
+                        GetData(bts);
+                        
+                    }
+
+                    // Освобождаем сокет
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
                 }
-
-                // Освобождаем сокет
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
+                catch { }
+                try
+                {
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+                }
+                catch { }
+                port = 0;
             }
-            catch { }
-            try
-            {
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
-            }
-            catch { }
 
         }
 
@@ -129,9 +133,10 @@ namespace Translation
 
             Socket handler = mainSocket.Accept();
             byte[] rcvbts = new byte[100];
-            while (!EndWork)
+            
+            try
             {
-                try
+                while (!EndWork)
                 {
                     handler.Receive(rcvbts);
                     if (rcvbts[0] == 0x1F)
@@ -143,11 +148,11 @@ namespace Translation
                     }
 
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.ToString(), "Error of added socket " + integ.ToString());
-                    //break;
-                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString(), "Error of added socket " + integ.ToString());
+                //break;
             }
             handler.Shutdown(SocketShutdown.Both);
             handler.Close();

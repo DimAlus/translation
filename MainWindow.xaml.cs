@@ -33,8 +33,10 @@ namespace Translation
 
 
 
+        System.Diagnostics.Stopwatch time = new System.Diagnostics.Stopwatch();
         void SetImage(byte[] bts)
         {
+            time.Stop();
             Dispatcher.Invoke(() =>
             {
                 try
@@ -45,6 +47,8 @@ namespace Translation
                     img.StreamSource = new MemoryStream(bts);
                     img.EndInit();
                     Imag.Source = img;
+
+                    TB.Text = (1000/time.ElapsedMilliseconds).ToString();
                 }
                 catch (Exception e)
                 {
@@ -52,11 +56,13 @@ namespace Translation
                 }
 
             });
+            time.Restart();
         }
 
         public MainWindow ()
         {
             InitializeComponent();
+            time.Start();
         }
         NetClient client;
         NetServer server;
