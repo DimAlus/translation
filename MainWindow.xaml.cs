@@ -153,11 +153,11 @@ namespace Translation
             p = System.Windows.Forms.Control.MousePosition;
             r.Location = new System.Drawing.Point((int)p.X - 10, (int)p.Y - 10);
            // System.Drawing.Rectangle rect;
-            System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Jpeg;
+            System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Gif;
             using (var ms = new System.IO.MemoryStream())
             {
                 using (System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(rect.Width, rect.Height,
-                    System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                    System.Drawing.Imaging.PixelFormat.Format16bppRgb555))
                 {
                     using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(bitmap))
                     {
