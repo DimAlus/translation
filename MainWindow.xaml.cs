@@ -85,12 +85,7 @@ namespace Translation
         {
             p = System.Windows.Forms.Control.MousePosition;
             r.Location = new System.Drawing.Point((int)p.X - 10, (int)p.Y - 10);
-<<<<<<< HEAD
-           // System.Drawing.Rectangle rect;
             System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Gif;
-=======
-            System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Jpeg;
->>>>>>> 08a995e8b07b932c0b6d8a6d3cd9e28dfeb96c20
             using (var ms = new System.IO.MemoryStream())
             {
                 using (System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(rect.Width, rect.Height,
