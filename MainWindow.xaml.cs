@@ -142,6 +142,7 @@ namespace Translation
         System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
         System.Drawing.Rectangle r = new System.Drawing.Rectangle(0, 0, 20, 20);
         Point p = new Point();
+        System.Drawing.Icon ic = new System.Drawing.Icon("bx-shower.ico");
         byte[] CaptureRect ()
         {
             Dispatcher.Invoke(() => p = PointToScreen(Mouse.GetPosition(this)));
@@ -157,8 +158,8 @@ namespace Translation
                     using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(bitmap))
                     {
                         graphics.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, System.Drawing.CopyPixelOperation.SourceCopy);//System.Drawing.CopyPixelOperation.SourceCopy
-                        graphics.DrawEllipse(pen, r);
-                        
+                        //graphics.DrawEllipse(pen, r);
+                        graphics.DrawIcon(ic, r);
                     }
                     
                     bitmap.Save(ms, format);

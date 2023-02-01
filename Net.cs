@@ -143,7 +143,8 @@ namespace Translation
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Error of added socket " + integ.ToString());
+                    //MessageBox.Show(ex.ToString(), "Error of added socket " + integ.ToString());
+                    break;
                 }
             }
             handler.Shutdown(SocketShutdown.Both);
