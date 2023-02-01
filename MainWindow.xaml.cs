@@ -158,6 +158,7 @@ namespace Translation
                     {
                         graphics.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size, System.Drawing.CopyPixelOperation.SourceCopy);//System.Drawing.CopyPixelOperation.SourceCopy
                         graphics.DrawEllipse(pen, r);
+                        
                     }
                     
                     bitmap.Save(ms, format);
