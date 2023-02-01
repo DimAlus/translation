@@ -51,6 +51,7 @@ namespace Translation
         {
             if (port == 0)
                 StartSend();
+            while(true)
             try
             {
                 ipEndPoint = new IPEndPoint(IPAddress.Parse(ipadd), startPort + port);
@@ -144,7 +145,7 @@ namespace Translation
                 catch (Exception ex)
                 {
                     //MessageBox.Show(ex.ToString(), "Error of added socket " + integ.ToString());
-                    break;
+                    //break;
                 }
             }
             handler.Shutdown(SocketShutdown.Both);
